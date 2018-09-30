@@ -1,10 +1,10 @@
 package ws.tilda.anastasia.todoapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.webkit.WebView;
 
-public class AboutActivity extends AppCompatActivity {
+public class AboutActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
