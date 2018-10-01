@@ -9,6 +9,10 @@ public class ToDoRepository {
 
     private List<ToDoModel> items = new ArrayList<>();
 
+    public synchronized static ToDoRepository get() {
+        return INSTANCE;
+    }
+
     private ToDoRepository() {
         items.add(ToDoModel.builder()
                 .description("Buy a copy of _Exploring Android_")
@@ -24,7 +28,8 @@ public class ToDoRepository {
                 .build());
     }
 
-    public synchronized static ToDoRepository get() {
-        return INSTANCE;
+
+    public List<ToDoModel> all() {
+        return new ArrayList<>(items);
     }
 }
