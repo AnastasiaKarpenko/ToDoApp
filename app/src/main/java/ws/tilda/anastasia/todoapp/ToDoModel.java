@@ -36,7 +36,7 @@ public abstract class ToDoModel {
 
         public abstract Builder notes(String notes);
 
-        public abstract Builder createdOn(Calendar date);
+        abstract Builder createdOn(Calendar date);
     }
 
 
