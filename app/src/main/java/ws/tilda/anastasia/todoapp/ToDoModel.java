@@ -3,6 +3,7 @@ package ws.tilda.anastasia.todoapp;
 import com.google.auto.value.AutoValue;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 import javax.annotation.Nullable;
 
@@ -22,6 +23,14 @@ public abstract class ToDoModel {
 
     static Builder builder() {
         return new AutoValue_ToDoModel.Builder();
+    }
+
+    public static Builder creator() {
+        return builder()
+                .isCompleted(false)
+                .id(UUID.randomUUID().toString())
+                .createdOn(Calendar.getInstance());
+
     }
 
     @AutoValue.Builder
