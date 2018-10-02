@@ -56,4 +56,13 @@ public class RepoTests {
         assertEquals(3, repo.all().size());
         assertSame(edited, repo.all().get(1));
     }
+
+    @Test
+    public void delete() {
+        assertEquals(3, repo.all().size());
+        repo.delete(repo.all().get(0));
+        assertEquals(2, repo.all().size());
+        repo.delete(repo.all().get(0).toBuilder().build());
+        assertEquals(1, repo.all().size());
+    }
 }

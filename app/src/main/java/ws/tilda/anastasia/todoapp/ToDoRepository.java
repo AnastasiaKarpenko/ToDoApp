@@ -52,4 +52,13 @@ public class ToDoRepository {
             }
         }
     }
+
+    public void delete(ToDoModel model) {
+        for (ToDoModel original : items) {
+            if (model.id().equals(original.id())) {
+                items.remove(original);
+                return;
+            }
+        }
+    }
 }
