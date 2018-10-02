@@ -19,7 +19,7 @@ public class ToDoRepository {
 
 
     // A constructor that generates the initial data while we don't have a DB
-    private ToDoRepository() {
+    ToDoRepository() {
         items.add(ToDoModel.creator()
                 .description("Buy a copy of _Exploring Android_")
                 .notes("See https://wares.commonsware.com")
@@ -39,5 +39,9 @@ public class ToDoRepository {
      */
     public List<ToDoModel> all() {
         return new ArrayList<>(items);
+    }
+
+    public void add(ToDoModel model) {
+        items.add(model);
     }
 }
