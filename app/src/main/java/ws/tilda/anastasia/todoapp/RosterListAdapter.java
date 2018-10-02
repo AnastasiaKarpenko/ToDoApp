@@ -22,8 +22,8 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterRowHolder> {
     @Override
     public RosterRowHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         TodoRowBinding binding =
-                TodoRowBinding.inflate(mHost.getLayoutInflater(null), parent, false);
-        return new RosterRowHolder(binding);
+                TodoRowBinding.inflate(mHost.getLayoutInflater(), parent, false);
+        return new RosterRowHolder(binding, this);
     }
 
     @Override
