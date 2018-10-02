@@ -26,4 +26,9 @@ public class RosterRowHolder extends RecyclerView.ViewHolder {
             mAdapter.replace(model, isChecked);
         }
     }
+
+    public void onClick() {
+    }
+
+
 }
