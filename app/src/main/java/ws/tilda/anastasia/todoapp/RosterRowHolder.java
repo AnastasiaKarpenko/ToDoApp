@@ -15,6 +15,7 @@ public class RosterRowHolder extends RecyclerView.ViewHolder {
 
     void bind(ToDoModel model) {
         mBinding.setModel(model);
+        mBinding.setHolder(this);
         mBinding.executePendingBindings();
     }
 }
