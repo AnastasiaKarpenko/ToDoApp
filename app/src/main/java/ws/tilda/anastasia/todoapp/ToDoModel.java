@@ -33,6 +33,15 @@ public abstract class ToDoModel {
 
     }
 
+    public Builder toBuilder() {
+        return builder()
+                .id(id())
+                .isCompleted(isCompleted())
+                .description(description())
+                .notes(notes())
+                .createdOn(createdOn());
+    }
+
     @AutoValue.Builder
     public static abstract class Builder {
         public abstract ToDoModel build();

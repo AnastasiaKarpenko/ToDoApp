@@ -44,4 +44,12 @@ public class ToDoRepository {
     public void add(ToDoModel model) {
         items.add(model);
     }
+
+    public void replace(ToDoModel model) {
+        for (int i = 0; i < items.size(); i++) {
+            if (model.id().equals(items.get(i).id())) {
+                items.set(i, model);
+            }
+        }
+    }
 }

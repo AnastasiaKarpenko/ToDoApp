@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 
 
@@ -41,5 +42,18 @@ public class RepoTests {
         assertEquals(4, models.size());
         assertThat(models, hasItem(model));
 
+    }
+
+    @Test
+    public void replace() {
+        ToDoModel original = repo.all().get(1);
+        ToDoModel edited = original.toBuilder()
+                .isCompleted(true)
+                .description("Currently on Tutorial #15")
+                .build();
+        repo.replace(edited);
+
+        assertEquals(3, repo.all().size());
+        assertSame(edited, repo.all().get(1));
     }
 }
