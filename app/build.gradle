@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
     }
     buildTypes {
         release {
@@ -26,7 +28,7 @@ android {
 }
 
 def supportVer = "27.1.1"
-def autoValueVer="1.5.1"
+def autoValueVer = "1.5.1"
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
