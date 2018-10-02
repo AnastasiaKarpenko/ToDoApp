@@ -34,6 +34,7 @@
             android:checked="@{model.isCompleted()}"
             android:ellipsize="end"
             android:maxLines="@integer/desc_maxLines"
+            android:onCheckedChanged="@{(cb, isChecked) -> holder.completeChanged(model, isChecked)}"
             android:text="@{model.description()}"
             android:textSize="@dimen/desc_size"
             app:layout_constraintBottom_toBottomOf="parent"
