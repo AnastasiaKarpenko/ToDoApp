@@ -1,11 +1,20 @@
 package ws.tilda.anastasia.todoapp;
 
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+
+import ws.tilda.anastasia.todoapp.databinding.TodoRowBinding;
 
 
 public class RosterRowHolder extends RecyclerView.ViewHolder {
-    public RosterRowHolder(View itemView) {
-        super(itemView);
+    final private TodoRowBinding mBinding;
+
+    public RosterRowHolder(TodoRowBinding binding) {
+        super(binding.getRoot());
+        mBinding = binding;
+    }
+
+    void bind(ToDoModel model) {
+        mBinding.setModel(model);
+        mBinding.executePendingBindings();
     }
 }
