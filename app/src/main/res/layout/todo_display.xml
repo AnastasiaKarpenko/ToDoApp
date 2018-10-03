@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <variable
+            name="model"
+            type="ws.tilda.anastasia.todoapp.ToDoModel"/>
 
     </data>
 
