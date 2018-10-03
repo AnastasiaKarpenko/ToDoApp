@@ -4,4 +4,5 @@
     <dimen name="checked_icon_size">48dp</dimen>
     <dimen name="desc_view_size">24sp</dimen>
     <dimen name="created_on_size">16sp</dimen>
+    <dimen name="notes_size">25sp</dimen>
 </resources>

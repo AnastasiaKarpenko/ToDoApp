@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 public class DisplayFragment extends Fragment {
     public static final String ARG_ID = "id";
 
+
     public static DisplayFragment newInstance(ToDoModel model) {
         DisplayFragment result = new DisplayFragment();
 
@@ -16,4 +17,6 @@ public class DisplayFragment extends Fragment {
         }
         return result;
     }
+
+
 }
