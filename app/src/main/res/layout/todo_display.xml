@@ -9,12 +9,15 @@
             name="model"
             type="ws.tilda.anastasia.todoapp.ToDoModel"/>
 
+        <variable
+            name="createdOn"
+            type="java.lang.CharSequence"/>
+
         <import type="android.view.View"/>
 
     </data>
 
     <android.support.constraint.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,15 +38,39 @@
             android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:text="@{model.description()}"
             android:textSize="@dimen/desc_view_size"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/completed"
+            app:layout_constraintEnd_toStartOf="@+id/completed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/label_created"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/created_on"
+            android:textSize="@dimen/created_on_size"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description"/>
+
+        <TextView
+            android:id="@+id/created_on"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@{createdOn}"
+            android:textSize="@dimen/created_on_size"
+            app:layout_constraintEnd_toStartOf="@+id/completed"
+            app:layout_constraintStart_toEndOf="@+id/label_created"
+            app:layout_constraintTop_toBottomOf="@+id/description"/>
     </android.support.constraint.ConstraintLayout>
 
 </layout>
