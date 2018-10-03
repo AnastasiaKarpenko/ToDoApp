@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="model"
             type="ws.tilda.anastasia.todoapp.ToDoModel"/>
+
+        <import type="android.view.View"/>
 
     </data>
 
@@ -14,6 +17,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/completed"
+            android:layout_width="@dimen/checked_icon_size"
+            android:layout_height="@dimen/checked_icon_size"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/is_completed"
+            android:tint="@color/accent"
+            android:visibility="@{model.isCompleted ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_check_circle_black_24dp"/>
     </android.support.constraint.ConstraintLayout>
 
 </layout>

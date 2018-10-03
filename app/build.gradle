@@ -9,8 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -25,6 +24,8 @@ android {
     dataBinding {
         enabled = true
     }
+
+
 }
 
 def supportVer = "27.1.1"
