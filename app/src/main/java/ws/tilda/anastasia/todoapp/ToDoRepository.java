@@ -61,4 +61,14 @@ public class ToDoRepository {
             }
         }
     }
+
+    public ToDoModel find(String id) {
+        for (ToDoModel candidate : all()) {
+            if (candidate.id().equals(id)) {
+                return candidate;
+            }
+        }
+        return null;
+    }
+
 }
