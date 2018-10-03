@@ -37,4 +37,8 @@ public class RosterListFragment extends Fragment {
         mRecyclerView.setAdapter(new RosterListAdapter(this));
         mEmpty.setVisibility(View.GONE);
     }
+
+    interface Contract {
+        void showModel(ToDoModel model);
+    }
 }

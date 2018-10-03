@@ -42,4 +42,8 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterRowHolder> {
     public void replace(ToDoModel model, boolean isChecked) {
         mRepository.replace(model.toBuilder().isCompleted(isChecked).build());
     }
+
+    void showModel(ToDoModel model) {
+        ((RosterListFragment.Contract) mHost.getActivity()).showModel(model);
+    }
 }

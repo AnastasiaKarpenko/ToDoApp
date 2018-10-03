@@ -28,6 +28,7 @@ public class RosterRowHolder extends RecyclerView.ViewHolder {
     }
 
     public void onClick() {
+        mAdapter.showModel(mBinding.getModel());
     }
 
 
