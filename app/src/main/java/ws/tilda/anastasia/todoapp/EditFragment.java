@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,5 +60,26 @@ public class EditFragment extends Fragment {
         inflater.inflate(R.menu.actions_edit, menu);
 
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.save) {
+            save();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void save() {
+        ToDoModel newModel = mBinding.getModel().toBuilder()
+                .description(mBinding.desc.getText().toString())
+                .notes(mBinding.notes.getText().toString())
+                .isCompleted(mBinding.isCompleted.isChecked())
+                .build();
+
+        ToDoRepository.get().replace(newModel);
+
     }
 }
