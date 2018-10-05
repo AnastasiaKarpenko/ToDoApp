@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
-public class MainActivity extends AppCompatActivity implements RosterListFragment.Contract, DisplayFragment.Contract {
+public class MainActivity extends AppCompatActivity implements RosterListFragment.Contract,
+        DisplayFragment.Contract, EditFragment.Contract {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,5 +55,18 @@ public class MainActivity extends AppCompatActivity implements RosterListFragmen
                 .addToBackStack(null)
                 .commit();
 
+    }
+
+    @Override
+    public void finishEdit() {
+        hideSoftInput();
+        getSupportFragmentManager().popBackStack();
+    }
+
+    private void hideSoftInput() {
+        if (getCurrentFocus() != null && getCurrentFocus().getWindowToken() != null) {
+            ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
     }
 }

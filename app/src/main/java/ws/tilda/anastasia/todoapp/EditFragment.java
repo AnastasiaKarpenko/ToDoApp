@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import ws.tilda.anastasia.todoapp.databinding.TodoEditBinding;
 
 public class EditFragment extends Fragment {
+    private static final String TAG = EditFragment.class.getSimpleName();
     public static final String ARG_ID = "id";
     private TodoEditBinding mBinding;
 
@@ -31,7 +33,15 @@ public class EditFragment extends Fragment {
     }
 
     public String getModelId() {
-        return getArguments().getString(ARG_ID);
+        Bundle args = getArguments();
+        String id = null;
+        if (args == null || args.isEmpty()) {
+            Log.e(TAG, "There are no arguments");
+        } else {
+            id = args.getString(ARG_ID);
+        }
+
+        return id;
     }
 
     @Nullable
@@ -81,5 +91,11 @@ public class EditFragment extends Fragment {
 
         ToDoRepository.get().replace(newModel);
 
+        ((Contract) getActivity()).finishEdit();
+
+    }
+
+    interface Contract {
+        void finishEdit();
     }
 }
