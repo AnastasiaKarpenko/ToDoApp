@@ -91,7 +91,11 @@ public class EditFragment extends Fragment {
 
         ToDoRepository.get().replace(newModel);
 
-        ((Contract) getActivity()).finishEdit();
+
+        Contract activity = (Contract) getActivity();
+        if (activity != null) {
+            (activity).finishEdit();
+        }
 
     }
 
