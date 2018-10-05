@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements RosterListFragment.Contract {
+public class MainActivity extends AppCompatActivity implements RosterListFragment.Contract, DisplayFragment.Contract {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,5 +44,14 @@ public class MainActivity extends AppCompatActivity implements RosterListFragmen
                 .replace(android.R.id.content, DisplayFragment.newInstance(model))
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void editModel(ToDoModel model) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(android.R.id.content, EditFragment.newInstance(model))
+                .addToBackStack(null)
+                .commit();
+
     }
 }

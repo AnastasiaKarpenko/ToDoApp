@@ -8,6 +8,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -43,6 +44,15 @@ public class DisplayFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.edit) {
+            ((Contract) getActivity()).editModel(mBinding.getModel());
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -64,5 +74,9 @@ public class DisplayFragment extends Fragment {
         mBinding.setModel(model);
         mBinding.setCreatedOn(DateUtils.getRelativeDateTimeString(getActivity(), model.createdOn().getTimeInMillis(),
                 DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+    }
+
+    interface Contract {
+        void editModel(ToDoModel model);
     }
 }
