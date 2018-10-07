@@ -36,10 +36,15 @@ public class RosterListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Activity activity = getActivity();
         if (activity != null) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-            DividerItemDecoration decoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
+            DividerItemDecoration decoration = new DividerItemDecoration(activity, LinearLayoutManager.VERTICAL);
             mRecyclerView.addItemDecoration(decoration);
-            mRecyclerView.setAdapter(new RosterListAdapter(this));
+        }
+
+        mRecyclerView.setAdapter(new RosterListAdapter(this));
+
+        if (mRecyclerView.getAdapter().getItemCount() > 0) {
+            mEmpty.setVisibility(View.GONE);
         }
 
 
