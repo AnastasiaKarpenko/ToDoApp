@@ -68,6 +68,7 @@ public class EditFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actions_edit, menu);
+        menu.findItem(R.id.delete).setVisible(mBinding.getModel() != null);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
