@@ -2,6 +2,7 @@ package ws.tilda.anastasia.todoapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 
 public class MainActivity extends AppCompatActivity implements RosterListFragment.Contract,
         DisplayFragment.Contract, EditFragment.Contract {
+    public static final String BACK_STACK_SHOW = "showModel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements RosterListFragmen
     public void showModel(ToDoModel model) {
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, DisplayFragment.newInstance(model))
-                .addToBackStack(null)
+                .addToBackStack(BACK_STACK_SHOW)
                 .commit();
     }
 
@@ -58,9 +60,15 @@ public class MainActivity extends AppCompatActivity implements RosterListFragmen
     }
 
     @Override
-    public void finishEdit() {
+    public void finishEdit(boolean deleted) {
         hideSoftInput();
-        getSupportFragmentManager().popBackStack();
+
+        if (deleted) {
+            getSupportFragmentManager().popBackStack(BACK_STACK_SHOW, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else {
+            getSupportFragmentManager().popBackStack();
+
+        }
     }
 
     private void hideSoftInput() {

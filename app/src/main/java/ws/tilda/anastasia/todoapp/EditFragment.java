@@ -77,6 +77,9 @@ public class EditFragment extends Fragment {
         if (item.getItemId() == R.id.save) {
             save();
             return true;
+        } else if (item.getItemId() == R.id.delete) {
+            delete();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -104,14 +107,24 @@ public class EditFragment extends Fragment {
             ToDoRepository.get().replace(newModel);
         }
 
+        finishEditWithNullCheck(false);
+
+    }
+
+    private void finishEditWithNullCheck(boolean deleted) {
         Contract activity = (Contract) getActivity();
         if (activity != null) {
-            (activity).finishEdit();
+            (activity).finishEdit(deleted);
         }
+    }
+
+    public void delete() {
+        ToDoRepository.get().delete(mBinding.getModel());
+        finishEditWithNullCheck(true);
 
     }
 
     interface Contract {
-        void finishEdit();
+        void finishEdit(boolean deleted);
     }
 }
