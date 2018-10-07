@@ -69,4 +69,9 @@ public class MainActivity extends AppCompatActivity implements RosterListFragmen
                     .hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
+
+    @Override
+    public void addModel() {
+        editModel(null);
+    }
 }
