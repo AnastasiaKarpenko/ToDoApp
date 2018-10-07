@@ -83,14 +83,26 @@ public class EditFragment extends Fragment {
     }
 
     private void save() {
-        ToDoModel newModel = mBinding.getModel().toBuilder()
+        ToDoModel.Builder builder;
+
+        if (mBinding.getModel() == null) {
+            builder = ToDoModel.creator();
+        } else {
+            builder = mBinding.getModel().toBuilder();
+        }
+
+
+        ToDoModel newModel = builder
                 .description(mBinding.desc.getText().toString())
                 .notes(mBinding.notes.getText().toString())
                 .isCompleted(mBinding.isCompleted.isChecked())
                 .build();
 
-        ToDoRepository.get().replace(newModel);
-
+        if (mBinding.getModel() == null) {
+            ToDoRepository.get().add(newModel);
+        } else {
+            ToDoRepository.get().replace(newModel);
+        }
 
         Contract activity = (Contract) getActivity();
         if (activity != null) {
