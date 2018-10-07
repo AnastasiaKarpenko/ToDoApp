@@ -21,6 +21,18 @@ public class RepoTests {
     @Before
     public void setUp() {
         repo = new ToDoRepository();
+        repo.add(ToDoModel.creator()
+                .description("Buy a copy of _Exploring Android_")
+                .notes("See https://wares.commonsware.com")
+                .isCompleted(true)
+                .build());
+        repo.add(ToDoModel.creator()
+                .description("Complete all of the tutorials")
+                .build());
+        repo.add(ToDoModel.creator()
+                .description("Write an app for somebody in my community")
+                .notes("Talk to some people at non-profit organizations to see what they need!")
+                .build());
     }
 
     @Test
