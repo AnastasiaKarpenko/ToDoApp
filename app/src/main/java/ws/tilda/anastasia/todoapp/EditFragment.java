@@ -1,5 +1,6 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ public class EditFragment extends Fragment {
     private static final String TAG = EditFragment.class.getSimpleName();
     public static final String ARG_ID = "id";
     private TodoEditBinding mBinding;
+    private RosterViewModel mViewModel;
 
     static EditFragment newInstance(ToDoModel model) {
         EditFragment result = new EditFragment();
@@ -63,6 +65,10 @@ public class EditFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        if(getActivity() != null) {
+            mViewModel = ViewModelProviders.of(getActivity()).get(RosterViewModel.class);
+        }
     }
 
     @Override

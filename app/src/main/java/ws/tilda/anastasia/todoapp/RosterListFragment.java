@@ -1,6 +1,7 @@
 package ws.tilda.anastasia.todoapp;
 
 import android.app.Activity;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ public class RosterListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private View mEmpty;
+    private RosterViewModel mViewModel;
 
     @Nullable
     @Override
@@ -46,8 +48,6 @@ public class RosterListFragment extends Fragment {
         if (mRecyclerView.getAdapter().getItemCount() > 0) {
             mEmpty.setVisibility(View.GONE);
         }
-
-
     }
 
     @Override
@@ -55,6 +55,10 @@ public class RosterListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        if (getActivity() != null) {
+            mViewModel = ViewModelProviders.of(getActivity()).get(RosterViewModel.class);
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import ws.tilda.anastasia.todoapp.databinding.TodoDisplayBinding;
 
 public class DisplayFragment extends Fragment {
     public static final String ARG_ID = "id";
+    private RosterViewModel mViewModel;
 
     private TodoDisplayBinding mBinding;
 
@@ -35,6 +37,10 @@ public class DisplayFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        if(getActivity() != null) {
+            mViewModel = ViewModelProviders.of(getActivity()).get(RosterViewModel.class);
+        }
     }
 
     @Override
@@ -47,6 +53,7 @@ public class DisplayFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.edit) {
+
             ((Contract) getActivity()).editModel(mBinding.getModel());
             return true;
         }
