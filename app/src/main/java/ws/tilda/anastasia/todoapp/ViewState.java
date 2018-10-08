@@ -4,6 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @AutoValue
@@ -15,6 +17,16 @@ public abstract class ViewState {
 
     static Builder builder() {
         return new AutoValue_ViewState.Builder();
+    }
+
+    static Builder empty() {
+        return builder().items(Collections.unmodifiableList(new ArrayList<>()));
+    }
+
+    Builder toBuilder() {
+        return builder()
+                .items(items())
+                .current(current());
     }
 
     @AutoValue.Builder
