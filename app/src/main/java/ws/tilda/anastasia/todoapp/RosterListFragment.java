@@ -1,6 +1,5 @@
 package ws.tilda.anastasia.todoapp;
 
-import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -37,16 +36,17 @@ public class RosterListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        Activity activity = getActivity();
-        if (activity != null) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(activity));
-            DividerItemDecoration decoration = new DividerItemDecoration(activity, LinearLayoutManager.VERTICAL);
+        if (getActivity() != null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            DividerItemDecoration decoration = new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL);
             mRecyclerView.addItemDecoration(decoration);
         }
 
         mAdapter = new RosterListAdapter(this);
 
         mRecyclerView.setAdapter(mAdapter);
+
+        mViewModel.stateStream().observe(this, this::render);
 
 
     }
