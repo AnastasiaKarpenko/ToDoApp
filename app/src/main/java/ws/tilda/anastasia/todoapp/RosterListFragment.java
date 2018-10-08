@@ -22,6 +22,7 @@ public class RosterListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private View mEmpty;
     private RosterViewModel mViewModel;
+    private RosterListAdapter mAdapter;
 
     @Nullable
     @Override
@@ -43,8 +44,14 @@ public class RosterListFragment extends Fragment {
             mRecyclerView.addItemDecoration(decoration);
         }
 
-        mRecyclerView.setAdapter(new RosterListAdapter(this));
+        mAdapter = new RosterListAdapter(this);
 
+        mRecyclerView.setAdapter(mAdapter);
+
+
+    }
+
+    private void manageEmptyRecyclerMessage() {
         if (mRecyclerView.getAdapter().getItemCount() > 0) {
             mEmpty.setVisibility(View.GONE);
         }
@@ -84,5 +91,11 @@ public class RosterListFragment extends Fragment {
         void showModel(ToDoModel model);
 
         void addModel();
+    }
+
+    public void render(ViewState state) {
+        mAdapter.setState(state);
+
+        manageEmptyRecyclerMessage();
     }
 }
