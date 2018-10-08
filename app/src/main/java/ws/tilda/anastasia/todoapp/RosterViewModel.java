@@ -11,6 +11,12 @@ public class RosterViewModel extends AndroidViewModel {
 
     public RosterViewModel(@NonNull Application application) {
         super(application);
+
+        ViewState initial = ViewState.builder()
+                .items(ToDoRepository.get().all())
+                .build();
+
+        states.postValue(initial);
     }
 
     public LiveData<ViewState> stateStream() {
