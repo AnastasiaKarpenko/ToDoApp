@@ -30,6 +30,7 @@ android {
 
 def supportVer = "27.1.1"
 def autoValueVer = "1.5.1"
+def archVer = "1.1.1"
 
 dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
@@ -42,4 +43,5 @@ dependencies {
     implementation "com.android.support:support-fragment:$supportVer"
     compileOnly "com.google.auto.value:auto-value:$autoValueVer"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVer"
+    implementation "android.arch.lifecycle:extensions:$archVer"
 }
