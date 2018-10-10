@@ -66,7 +66,7 @@ public class EditFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             mViewModel = ViewModelProviders.of(getActivity()).get(RosterViewModel.class);
         }
     }
@@ -109,9 +109,9 @@ public class EditFragment extends Fragment {
                 .build();
 
         if (mBinding.getModel() == null) {
-            ToDoRepository.get().add(newModel);
+            mViewModel.process(Action.add(newModel));
         } else {
-            ToDoRepository.get().replace(newModel);
+            mViewModel.process(Action.edit(newModel));
         }
 
         finishEditWithNullCheck(false);
@@ -126,7 +126,7 @@ public class EditFragment extends Fragment {
     }
 
     public void delete() {
-        ToDoRepository.get().delete(mBinding.getModel());
+        mViewModel.process(Action.delete(mBinding.getModel()));
         finishEditWithNullCheck(true);
 
     }
