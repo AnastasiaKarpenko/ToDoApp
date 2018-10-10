@@ -29,6 +29,23 @@ public abstract class ViewState {
                 .current(current());
     }
 
+    ViewState add(ToDoModel model) {
+        List<ToDoModel> models = new ArrayList<>(items());
+        models.add(model);
+        sort(models);
+
+        return toBuilder()
+                .items(Collections.unmodifiableList(models))
+                .current(model)
+                .build();
+
+    }
+
+    private void sort(List<ToDoModel> models) {
+        Collections.sort(models, ToDoModel.SORT_BY_DESC);
+    }
+
+
     @AutoValue.Builder
     abstract static class Builder {
         abstract Builder items(List<ToDoModel> items);

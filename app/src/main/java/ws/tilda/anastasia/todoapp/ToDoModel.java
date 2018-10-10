@@ -3,12 +3,15 @@ package ws.tilda.anastasia.todoapp;
 import com.google.auto.value.AutoValue;
 
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
 @AutoValue
 public abstract class ToDoModel {
+    static final Comparator<ToDoModel> SORT_BY_DESC =
+            (one, two) -> (one.description().compareTo(two.description()));
 
     public abstract String id();
 
