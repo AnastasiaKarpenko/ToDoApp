@@ -2,9 +2,11 @@ package ws.tilda.anastasia.todoapp;
 
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subjects.PublishSubject;
 
 public class Controller {
     private final ToDoRepository toDoRepo = ToDoRepository.get();
+    private final PublishSubject<Result> resultSubject = PublishSubject.create();
 
     //We need to process our actions
     private void processImpl(Action action) {
@@ -25,14 +27,21 @@ public class Controller {
 
     private void add(ToDoModel model) {
         toDoRepo.add(model);
+        resultSubject.onNext(Result.added(model));
     }
 
     private void modify(ToDoModel model) {
         toDoRepo.replace(model);
+        resultSubject.onNext(Result.modified(model));
     }
 
     private void delete(ToDoModel model) {
         toDoRepo.delete(model);
+        resultSubject.onNext(Result.deleted(model));
+    }
+
+    public Observable<Result> resultStream() {
+        return resultSubject;
     }
 
 
