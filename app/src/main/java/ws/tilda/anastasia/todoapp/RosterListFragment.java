@@ -87,6 +87,10 @@ public class RosterListFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    public void replace(ToDoModel model) {
+        mViewModel.process(Action.edit(model));
+    }
+
     interface Contract {
         void showModel(ToDoModel model);
 

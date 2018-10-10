@@ -12,10 +12,8 @@ import ws.tilda.anastasia.todoapp.databinding.TodoRowBinding;
 public class RosterListAdapter extends RecyclerView.Adapter<RosterRowHolder> {
     private List<ToDoModel> mModels;
     final private RosterListFragment mHost;
-    final private ToDoRepository mRepository;
 
     RosterListAdapter(RosterListFragment host) {
-        mRepository = ToDoRepository.get();
         mHost = host;
     }
 
@@ -44,7 +42,7 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterRowHolder> {
     }
 
     public void replace(ToDoModel model, boolean isChecked) {
-        mRepository.replace(model.toBuilder().isCompleted(isChecked).build());
+        mHost.replace(model.toBuilder().isCompleted(isChecked).build());
     }
 
     void showModel(ToDoModel model) {
