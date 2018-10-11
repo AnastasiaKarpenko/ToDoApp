@@ -46,6 +46,6 @@ public class RosterListAdapter extends RecyclerView.Adapter<RosterRowHolder> {
     }
 
     void showModel(ToDoModel model) {
-        ((RosterListFragment.Contract) mHost.getActivity()).showModel(model);
+        mHost.showModel(model);
     }
 }

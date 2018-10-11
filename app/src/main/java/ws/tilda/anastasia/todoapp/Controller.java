@@ -16,8 +16,10 @@ public class Controller {
             modify(((Action.Edit) action).model());
         } else if (action instanceof Action.Delete) {
             delete(((Action.Delete) action).model());
-        } else if(action instanceof Action.Load) {
+        } else if (action instanceof Action.Load) {
             load();
+        } else if (action instanceof Action.Show) {
+            show(((Action.Show) action).current());
         }
     }
 
@@ -48,6 +50,10 @@ public class Controller {
 
     private void load() {
         resultSubject.onNext(Result.loaded(toDoRepo.all()));
+    }
+
+    private void show(ToDoModel current) {
+        resultSubject.onNext(Result.showed(current));
     }
 
 

@@ -102,4 +102,9 @@ public class RosterListFragment extends Fragment {
 
         manageEmptyRecyclerMessage();
     }
+
+    void showModel(ToDoModel model) {
+        ((RosterListFragment.Contract) getActivity()).showModel(model);
+        mViewModel.process(Action.show(model));
+    }
 }

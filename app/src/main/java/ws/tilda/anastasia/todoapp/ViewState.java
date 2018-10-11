@@ -93,6 +93,12 @@ public abstract class ViewState {
         return -1;
     }
 
+    ViewState show(ToDoModel current) {
+        return toBuilder()
+                .current(current)
+                .build();
+    }
+
     private void sort(List<ToDoModel> models) {
         Collections.sort(models, ToDoModel.SORT_BY_DESC);
     }

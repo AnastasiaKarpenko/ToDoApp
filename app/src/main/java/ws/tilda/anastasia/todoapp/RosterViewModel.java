@@ -75,6 +75,8 @@ public class RosterViewModel extends AndroidViewModel {
                     .items(models)
                     .current(models.size() == 0 ? null : models.get(0))
                     .build();
+        } else if (result instanceof Result.Showed) {
+            return state.show(((Result.Showed) result).current());
         } else {
             throw new IllegalStateException("Unexpected result type: " + result.toString());
         }
