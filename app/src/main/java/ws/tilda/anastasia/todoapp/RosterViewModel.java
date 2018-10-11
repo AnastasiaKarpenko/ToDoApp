@@ -13,8 +13,8 @@ import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.ReplaySubject;
 
 public class RosterViewModel extends AndroidViewModel {
-    private LiveData<ViewState> states;
-    private ViewState lastState = ViewState.empty().build();
+    private LiveData<ViewState> mStates;
+    private ViewState mLastState = ViewState.empty().build();
     private static final int LATEST_ONE = 1;
     private final PublishSubject<Action> actionSubject = PublishSubject.create();
     private final ReplaySubject<ViewState> stateSubject = ReplaySubject.createWithSize(LATEST_ONE); //caching the most recent data
@@ -33,18 +33,18 @@ public class RosterViewModel extends AndroidViewModel {
         */
         controller.resultStream()
                 .subscribe(result -> {
-                    lastState = foldResultIntoState(lastState, result);
-                    stateSubject.onNext(lastState); //
+                    mLastState = foldResultIntoState(mLastState, result);
+                    stateSubject.onNext(mLastState);
                 }, stateSubject::onError);
         /*
-        LiveData states is initialized using LifeDataReactiveStreams that comes from the dependency. fromPublisher() method
+        LiveData mStates is initialized using LifeDataReactiveStreams that comes from the dependency. fromPublisher() method
         creates a LiveData object that knows how to subscribe to RxJava type and pass any received objects to subscribers.
         fromPublisher() methods receives object that implements Publisher interface that is a part of ReactiveStreams initiative.
         stateSubject is converted to Publisher interface via toFlowable(), that requires to supply a BackPressure strategy
         (meaning "what to do if the pipeline gets blocked") and LATEST strategy means to keep the latest items in the pipeline
         and eliminate the older ones if the is a backlog.
         */
-        states = LiveDataReactiveStreams
+        mStates = LiveDataReactiveStreams
                 .fromPublisher(stateSubject.toFlowable(BackpressureStrategy.LATEST));
 
         controller.subscribeToActions(actionSubject);
@@ -53,7 +53,7 @@ public class RosterViewModel extends AndroidViewModel {
 
 
     public LiveData<ViewState> stateStream() {
-        return states;
+        return mStates;
     }
 
     public void process(Action action) {

@@ -38,7 +38,7 @@ public class DisplayFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             mViewModel = ViewModelProviders.of(getActivity()).get(RosterViewModel.class);
         }
     }
@@ -54,7 +54,11 @@ public class DisplayFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.edit) {
 
-            ((Contract) getActivity()).editModel(mBinding.getModel());
+
+            Contract activity = (Contract) getActivity();
+            if (activity != null) {
+                activity.editModel(mBinding.getModel());
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -70,17 +74,34 @@ public class DisplayFragment extends Fragment {
     }
 
     private String getModelId() {
-        return getArguments().getString(ARG_ID);
+
+        Bundle arguments = getArguments();
+        String string = null;
+        if (arguments != null) {
+            string = arguments.getString(ARG_ID);
+        }
+
+        return string;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ToDoModel model = ToDoRepository.get().find(getModelId());
 
-        mBinding.setModel(model);
-        mBinding.setCreatedOn(DateUtils.getRelativeDateTimeString(getActivity(), model.createdOn().getTimeInMillis(),
-                DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+        mViewModel.stateStream()
+                .observe(this, this::render);
+    }
+
+    private void render(ViewState state) {
+        if (state != null) {
+            ToDoModel model = state.current();
+
+            if (model != null) {
+                mBinding.setModel(model);
+                mBinding.setCreatedOn(DateUtils.getRelativeDateTimeString(getActivity(), model.createdOn().getTimeInMillis(),
+                        DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+            }
+        }
     }
 
     interface Contract {

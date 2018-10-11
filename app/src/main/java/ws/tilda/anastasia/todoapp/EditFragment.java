@@ -20,6 +20,7 @@ public class EditFragment extends Fragment {
     public static final String ARG_ID = "id";
     private TodoEditBinding mBinding;
     private RosterViewModel mViewModel;
+    private MenuItem mDeleteMenu;
 
     static EditFragment newInstance(ToDoModel model) {
         EditFragment result = new EditFragment();
@@ -57,7 +58,8 @@ public class EditFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mBinding.setModel(ToDoRepository.get().find(getModelId()));
+        super.onViewCreated(view, savedInstanceState);
+        mViewModel.stateStream().observe(this, this::render);
     }
 
     @Override
@@ -74,7 +76,8 @@ public class EditFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.actions_edit, menu);
-        menu.findItem(R.id.delete).setVisible(mBinding.getModel() != null);
+        mDeleteMenu = menu.findItem(R.id.delete);
+        mDeleteMenu.setVisible(getModelId() != null);
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -129,6 +132,20 @@ public class EditFragment extends Fragment {
         mViewModel.process(Action.delete(mBinding.getModel()));
         finishEditWithNullCheck(true);
 
+    }
+
+    private void render(ViewState state) {
+        if (state != null) {
+            if (getModelId() == null) {
+                if (mDeleteMenu != null) {
+                    mDeleteMenu.setVisible(false);
+                }
+            } else {
+                ToDoModel model = state.current();
+
+                mBinding.setModel(model);
+            }
+        }
     }
 
     interface Contract {

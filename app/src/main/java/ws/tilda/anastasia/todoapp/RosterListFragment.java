@@ -51,12 +51,6 @@ public class RosterListFragment extends Fragment {
 
     }
 
-    private void manageEmptyRecyclerMessage() {
-        if (mRecyclerView.getAdapter().getItemCount() > 0) {
-            mEmpty.setVisibility(View.GONE);
-        }
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,11 +94,22 @@ public class RosterListFragment extends Fragment {
     public void render(ViewState state) {
         mAdapter.setState(state);
 
-        manageEmptyRecyclerMessage();
+        manageEmptyRecyclerViewMessage();
+    }
+
+    private void manageEmptyRecyclerViewMessage() {
+        if (mRecyclerView.getAdapter().getItemCount() > 0) {
+            mEmpty.setVisibility(View.GONE);
+        } else {
+            mEmpty.setVisibility(View.VISIBLE);
+        }
     }
 
     void showModel(ToDoModel model) {
-        ((RosterListFragment.Contract) getActivity()).showModel(model);
+        Contract activity = (Contract) getActivity();
+        if (activity != null) {
+            activity.showModel(model);
+        }
         mViewModel.process(Action.show(model));
     }
 }
