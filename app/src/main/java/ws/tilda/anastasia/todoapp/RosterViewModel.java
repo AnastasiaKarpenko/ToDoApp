@@ -60,6 +60,10 @@ public class RosterViewModel extends AndroidViewModel {
                                           @NonNull Result result) throws Exception {
         if (result instanceof Result.Added) {
             return state.add(((Result.Added) result).model());
+        } else if (result instanceof Result.Modified) {
+            return state.modify(((Result.Modified) result).model());
+        } else if (result instanceof Result.Deleted) {
+            return state.delete(((Result.Deleted) result).model());
         } else {
             throw new IllegalStateException("Unexpected result type: " + result.toString());
         }
