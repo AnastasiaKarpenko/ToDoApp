@@ -34,5 +34,14 @@ public class RosterViewModel extends AndroidViewModel {
         actionSubject.onNext(action);
     }
 
+    private ViewState forldResultIntoState(@NonNull ViewState state, @NonNull Result result)
+            throws Exception {
+        if (result instanceof Result.Added) {
+            return state.add(((Result.Added) result).model());
+        } else {
+            throw new IllegalStateException("Unexpected result type: " + result.toString());
+        }
+    }
+
 
 }
