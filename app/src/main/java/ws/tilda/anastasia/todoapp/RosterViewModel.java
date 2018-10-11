@@ -6,6 +6,8 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.LiveDataReactiveStreams;
 import android.support.annotation.NonNull;
 
+import java.util.List;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.subjects.PublishSubject;
 import io.reactivex.subjects.ReplaySubject;
@@ -23,7 +25,6 @@ public class RosterViewModel extends AndroidViewModel {
 
 
         Controller controller = new Controller();
-        controller.subscribeToActions(actionSubject);
 
         /*
         Last ViewState is blended with new Result and gets a new ViewState via foldResultIntoState().
@@ -45,6 +46,9 @@ public class RosterViewModel extends AndroidViewModel {
         */
         states = LiveDataReactiveStreams
                 .fromPublisher(stateSubject.toFlowable(BackpressureStrategy.LATEST));
+
+        controller.subscribeToActions(actionSubject);
+        process(Action.load());
     }
 
 
@@ -64,6 +68,13 @@ public class RosterViewModel extends AndroidViewModel {
             return state.modify(((Result.Modified) result).model());
         } else if (result instanceof Result.Deleted) {
             return state.delete(((Result.Deleted) result).model());
+        } else if (result instanceof Result.Loaded) {
+            List<ToDoModel> models = (((Result.Loaded) result).models());
+
+            return ViewState.builder()
+                    .items(models)
+                    .current(models.size() == 0 ? null : models.get(0))
+                    .build();
         } else {
             throw new IllegalStateException("Unexpected result type: " + result.toString());
         }

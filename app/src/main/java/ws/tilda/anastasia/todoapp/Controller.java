@@ -16,6 +16,8 @@ public class Controller {
             modify(((Action.Edit) action).model());
         } else if (action instanceof Action.Delete) {
             delete(((Action.Delete) action).model());
+        } else if(action instanceof Action.Load) {
+            load();
         }
     }
 
@@ -42,6 +44,10 @@ public class Controller {
 
     public Observable<Result> resultStream() {
         return resultSubject;
+    }
+
+    private void load() {
+        resultSubject.onNext(Result.loaded(toDoRepo.all()));
     }
 
 
