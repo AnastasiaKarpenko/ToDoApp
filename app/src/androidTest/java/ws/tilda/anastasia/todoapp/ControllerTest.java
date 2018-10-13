@@ -37,5 +37,49 @@ public class ControllerTest {
 
         //Confirms that there is no model in the Result cause we start from the empty repository
         assertEquals(0, resultLoaded.models().size());
+
+        /* Add method tests. Create 3 models, add each of them to the repository and confirm with
+        tests that we get the equivalent model back from the result */
+
+        final ToDoModel fooModel = ToDoModel.creator()
+                .description("foo")
+                .notes("hello, world!")
+                .build();
+        actionSubject.onNext(Action.add(fooModel));
+
+        Result.Added resultAdded = null;
+        try {
+            resultAdded = (Result.Added) receivedResults.poll(1, TimeUnit.SECONDS);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(fooModel, resultAdded.model());
+
+        ToDoModel barModel = ToDoModel.creator().description("bar").build();
+        actionSubject.onNext(Action.add(barModel));
+
+        try {
+            resultAdded = (Result.Added) receivedResults.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(barModel, resultAdded.model());
+
+        ToDoModel gooModel = ToDoModel.creator()
+                .description("goo")
+                .isCompleted(true)
+                .build();
+        actionSubject.onNext(Action.add(gooModel));
+
+        try {
+            resultAdded = (Result.Added) receivedResults.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(gooModel, resultAdded.model());
+
     }
 }
