@@ -93,6 +93,7 @@ public class ControllerTest {
             e.printStackTrace();
         }
         assertEquals(mutatedFoo, resultModified.model());
+
         final ToDoModel mutatedBar = barModel.toBuilder().description("bar!").notes("hi!").build();
         actionSubject.onNext(Action.edit(mutatedBar));
         try {
@@ -102,6 +103,7 @@ public class ControllerTest {
             e.printStackTrace();
         }
         assertEquals(mutatedBar, resultModified.model());
+
         final ToDoModel mutatedGoo = gooModel.toBuilder()
                 .description("goo!")
                 .isCompleted(false)
@@ -115,5 +117,34 @@ public class ControllerTest {
         }
         assertEquals(mutatedGoo, resultModified.model());
 
+        //Testing deletion
+
+        actionSubject.onNext(Action.delete(barModel));
+        Result.Deleted resultDeleted =
+                null;
+        try {
+            resultDeleted = (Result.Deleted) receivedResults.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(barModel, resultDeleted.model());
+
+        actionSubject.onNext(Action.delete(fooModel));
+        try {
+            resultDeleted =
+                    (Result.Deleted) receivedResults.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(fooModel, resultDeleted.model());
+
+        actionSubject.onNext(Action.delete(gooModel));
+        try {
+            resultDeleted =
+                    (Result.Deleted) receivedResults.poll(1, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertEquals(gooModel, resultDeleted.model());
     }
 }
