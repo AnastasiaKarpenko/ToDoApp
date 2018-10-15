@@ -3,9 +3,11 @@ package ws.tilda.anastasia.todoapp;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
 @Database(entities = {ToDoEntity.class}, version = 1)
+@TypeConverters({TypeTransmogrifier.class})
 public abstract class ToDoDatabase extends RoomDatabase {
 
     public abstract ToDoEntity.Store todoStore();
