@@ -12,14 +12,11 @@ import android.arch.persistence.room.Update;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "todos", indices = @Index(value = "id"))
 public class ToDoEntity {
-    @PrimaryKey
-    @NonNull final String id;
+    @PrimaryKey @NonNull final String id;
 
     @NonNull
     final String description;
@@ -28,8 +25,8 @@ public class ToDoEntity {
     @NonNull
     final Calendar createdOn;
 
-    public ToDoEntity(@NonNull String id, @NonNull String description, boolean isCompleted, String notes,
-                      @NonNull Calendar createdOn) {
+    ToDoEntity(@NonNull String id, @NonNull String description, boolean isCompleted, String notes,
+               @NonNull Calendar createdOn) {
         this.id = id;
         this.description = description;
         this.notes = notes;

@@ -53,4 +53,6 @@ dependencies {
     compileOnly "com.google.auto.value:auto-value:$autoValueVer"
     annotationProcessor "com.google.auto.value:auto-value:$autoValueVer"
 
+    annotationProcessor 'com.android.databinding:compiler:2.3.0'
+
 }
