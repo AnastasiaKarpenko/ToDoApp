@@ -19,8 +19,7 @@ import io.reactivex.annotations.NonNull;
 @Entity(tableName = "todos", indices = @Index(value = "id"))
 public class ToDoEntity {
     @PrimaryKey
-    @NonNull
-    final String id;
+    @NonNull final String id;
 
     @NonNull
     final String description;

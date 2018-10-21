@@ -32,7 +32,7 @@ android {
 def supportVer = "27.1.1"
 def autoValueVer = "1.5.1"
 def archVer = "1.1.1"
-def roomVer = "1.1.0"
+def roomVer = "1.1.1"
 
 dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
@@ -46,6 +46,7 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$roomVer"
     implementation "android.arch.persistence.room:rxjava2:$roomVer"
     annotationProcessor "android.arch.persistence.room:compiler:$roomVer"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
