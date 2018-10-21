@@ -1,5 +1,6 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class RepoTests {
 
     @Before
     public void setUp() {
-        repo = new ToDoRepository();
+        repo = ToDoRepository.get(InstrumentationRegistry.getTargetContext());
         repo.add(ToDoModel.creator()
                 .description("Buy a copy of _Exploring Android_")
                 .notes("See https://wares.commonsware.com")

@@ -1,5 +1,7 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +10,20 @@ public class ToDoRepository {
     /* This Singleton allows multiple threads to reach the instance. The app is small so Sngleton
     will not cause memory issues.
      */
-    private static volatile ToDoRepository INSTANCE = new ToDoRepository();
+    private static volatile ToDoRepository INSTANCE = null;
+    private final ToDoDatabase db;
 
     private List<ToDoModel> items = new ArrayList<>();
 
+    private ToDoRepository(Context context) {
+        db = ToDoDatabase.get(context);
+    }
+
     // Only one thread at a time can get the repository
-    public synchronized static ToDoRepository get() {
+    public synchronized static ToDoRepository get(Context context) {
+        if (INSTANCE == null) {
+            INSTANCE = new ToDoRepository(context.getApplicationContext());
+        }
         return INSTANCE;
     }
 

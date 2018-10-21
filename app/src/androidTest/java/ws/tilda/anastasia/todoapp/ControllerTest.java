@@ -1,5 +1,6 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Test;
@@ -18,7 +19,7 @@ public class ControllerTest {
 
     @Test
     public void controller() {
-        final Controller controller = new Controller();
+        final Controller controller = new Controller(InstrumentationRegistry.getTargetContext());
         final PublishSubject<Action> actionSubject = PublishSubject.create(); // set up the source for actions
         final LinkedBlockingQueue<Result> receivedResults = new LinkedBlockingQueue<>(); // where results from the controller will go
 

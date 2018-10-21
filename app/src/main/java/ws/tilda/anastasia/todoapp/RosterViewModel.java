@@ -24,7 +24,7 @@ public class RosterViewModel extends AndroidViewModel {
         super(application);
 
 
-        Controller controller = new Controller();
+        Controller controller = new Controller(application);
 
         /*
         Last ViewState is blended with new Result and gets a new ViewState via foldResultIntoState().

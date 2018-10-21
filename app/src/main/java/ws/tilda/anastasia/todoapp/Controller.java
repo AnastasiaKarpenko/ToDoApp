@@ -1,11 +1,18 @@
 package ws.tilda.anastasia.todoapp;
 
+import android.content.Context;
+
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subjects.PublishSubject;
 
 public class Controller {
-    private final ToDoRepository toDoRepo = ToDoRepository.get();
+    private final ToDoRepository toDoRepo;
+
+    public Controller(Context context) {
+        toDoRepo = ToDoRepository.get(context);
+    }
+
     private final PublishSubject<Result> resultSubject = PublishSubject.create();
 
     //We need to process our actions
