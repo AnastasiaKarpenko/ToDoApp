@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertThat;
 
 
@@ -21,6 +20,9 @@ public class RepoTests {
 
     @Before
     public void setUp() {
+        ToDoDatabase db = ToDoDatabase.get(InstrumentationRegistry.getTargetContext());
+
+        db.todoStore().deleteAll();
         repo = ToDoRepository.get(InstrumentationRegistry.getTargetContext());
         repo.add(ToDoModel.creator()
                 .description("Buy a copy of _Exploring Android_")
@@ -67,7 +69,7 @@ public class RepoTests {
         repo.replace(edited);
 
         assertEquals(3, repo.all().size());
-        assertSame(edited, repo.all().get(1));
+        assertEquals(edited, repo.all().get(1));
     }
 
     @Test

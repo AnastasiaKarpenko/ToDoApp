@@ -12,6 +12,8 @@ import android.arch.persistence.room.Update;
 import java.util.Calendar;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import io.reactivex.annotations.NonNull;
 
 @Entity(tableName = "todos", indices = @Index(value = "id"))
@@ -19,6 +21,7 @@ public class ToDoEntity {
     @PrimaryKey
     @NonNull
     final String id;
+
     @NonNull
     final String description;
     final String notes;
@@ -64,6 +67,9 @@ public class ToDoEntity {
 
         @Delete
         void delete(ToDoEntity... entities);
+
+        @Query("DELETE FROM todos")
+        void deleteAll();
     }
 }
 

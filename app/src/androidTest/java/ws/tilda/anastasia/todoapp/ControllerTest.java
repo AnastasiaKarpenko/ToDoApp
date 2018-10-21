@@ -3,6 +3,7 @@ package ws.tilda.anastasia.todoapp;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,6 +16,13 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class ControllerTest {
+
+    @Before
+    public void setUp() {
+        ToDoDatabase db = ToDoDatabase.get(InstrumentationRegistry.getTargetContext());
+
+        db.todoStore().deleteAll(); //starting from the empty state of the database
+    }
 
 
     @Test
