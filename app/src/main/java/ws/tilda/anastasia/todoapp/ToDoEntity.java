@@ -26,13 +26,29 @@ public class ToDoEntity {
     @NonNull
     final Calendar createdOn;
 
-    public ToDoEntity(@NonNull String id, @NonNull String description, String notes,
-                      boolean isCompleted, @NonNull Calendar createdOn) {
+    public ToDoEntity(@NonNull String id, @NonNull String description, boolean isCompleted, String notes,
+                      @NonNull Calendar createdOn) {
         this.id = id;
         this.description = description;
         this.notes = notes;
         this.isCompleted = isCompleted;
         this.createdOn = createdOn;
+    }
+
+    public static ToDoEntity fromModel(ToDoModel model) {
+        return new ToDoEntity(model.id(), model.description(), model.isCompleted(),
+                model.notes(), model.createdOn());
+    }
+
+    public ToDoModel toModel() {
+        return ToDoModel.builder()
+                .id(id)
+                .description(description)
+                .isCompleted(isCompleted)
+                .notes(notes)
+                .createdOn(createdOn)
+                .build();
+
     }
 
     @Dao

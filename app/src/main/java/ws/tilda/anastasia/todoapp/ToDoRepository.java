@@ -13,8 +13,6 @@ public class ToDoRepository {
     private static volatile ToDoRepository INSTANCE = null;
     private final ToDoDatabase db;
 
-    private List<ToDoModel> items = new ArrayList<>();
-
     private ToDoRepository(Context context) {
         db = ToDoDatabase.get(context);
     }
@@ -32,37 +30,26 @@ public class ToDoRepository {
      so that only Repository itself could change the original list with data.
      */
     public List<ToDoModel> all() {
-        return new ArrayList<>(items);
+        List<ToDoEntity> entities = db.todoStore().all();
+        ArrayList<ToDoModel> result = new ArrayList<>(entities.size());
+
+        for (ToDoEntity entity : entities) {
+            result.add(entity.toModel());
+        }
+        return result;
     }
 
     public void add(ToDoModel model) {
-        items.add(model);
+        db.todoStore().insert(ToDoEntity.fromModel(model));
     }
 
     public void replace(ToDoModel model) {
-        for (int i = 0; i < items.size(); i++) {
-            if (model.id().equals(items.get(i).id())) {
-                items.set(i, model);
-            }
-        }
+        db.todoStore().update(ToDoEntity.fromModel(model));
     }
 
     public void delete(ToDoModel model) {
-        for (ToDoModel original : items) {
-            if (model.id().equals(original.id())) {
-                items.remove(original);
-                return;
-            }
-        }
+        db.todoStore().delete(ToDoEntity.fromModel(model));
     }
 
-    public ToDoModel find(String id) {
-        for (ToDoModel candidate : all()) {
-            if (candidate.id().equals(id)) {
-                return candidate;
-            }
-        }
-        return null;
-    }
 
 }
