@@ -74,6 +74,7 @@ public class RosterViewModel extends AndroidViewModel {
             return ViewState.builder()
                     .items(models)
                     .current(models.size() == 0 ? null : models.get(0))
+                    .isLoaded(true)
                     .build();
         } else if (result instanceof Result.Showed) {
             return state.show(((Result.Showed) result).current());
