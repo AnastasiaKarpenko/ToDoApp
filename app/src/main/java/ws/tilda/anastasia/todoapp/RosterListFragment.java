@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 public class RosterListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
-    private View mEmpty;
+    private View mEmpty, mProgress;
     private RosterViewModel mViewModel;
     private RosterListAdapter mAdapter;
 
@@ -30,6 +30,7 @@ public class RosterListFragment extends Fragment {
 
         mRecyclerView = result.findViewById(R.id.items);
         mEmpty = result.findViewById(R.id.empty);
+        mProgress = result.findViewById(R.id.progressBar);
 
         return result;
     }
@@ -94,14 +95,17 @@ public class RosterListFragment extends Fragment {
     public void render(ViewState state) {
         mAdapter.setState(state);
 
-        manageEmptyRecyclerViewMessage();
-    }
+        if (state.isLoaded()) {
+            mProgress.setVisibility(View.GONE);
 
-    private void manageEmptyRecyclerViewMessage() {
-        if (mRecyclerView.getAdapter().getItemCount() > 0) {
-            mEmpty.setVisibility(View.GONE);
+            if (mRecyclerView.getAdapter().getItemCount() > 0) {
+                mEmpty.setVisibility(View.GONE);
+            } else {
+                mEmpty.setVisibility(View.VISIBLE);
+            }
         } else {
-            mEmpty.setVisibility(View.VISIBLE);
+            mProgress.setVisibility(View.VISIBLE);
+            mEmpty.setVisibility(View.GONE);
         }
     }
 
