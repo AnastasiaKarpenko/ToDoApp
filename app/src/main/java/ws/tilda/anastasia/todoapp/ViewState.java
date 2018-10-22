@@ -10,13 +10,15 @@ import java.util.List;
 
 @AutoValue
 public abstract class ViewState {
+    public abstract boolean isLoaded();
+
     public abstract List<ToDoModel> items();
 
     @Nullable
     public abstract ToDoModel current();
 
     static Builder builder() {
-        return new AutoValue_ViewState.Builder();
+        return new AutoValue_ViewState.Builder().isLoaded(false);
     }
 
     static Builder empty() {
@@ -26,7 +28,8 @@ public abstract class ViewState {
     Builder toBuilder() {
         return builder()
                 .items(items())
-                .current(current());
+                .current(current())
+                .isLoaded(isLoaded());
     }
 
     ViewState add(ToDoModel model) {
@@ -111,5 +114,7 @@ public abstract class ViewState {
         abstract Builder current(ToDoModel current);
 
         abstract ViewState build();
+
+        abstract Builder isLoaded(boolean isLoaded);
     }
 }
